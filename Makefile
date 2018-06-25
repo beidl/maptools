@@ -17,13 +17,17 @@
 OSTYPE := $(shell uname -s)
 
 # Some plattforms call it "amd64" and some "x86_64"
-ARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/amd64/x86_64/)
+ARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/amd64/x86_64/armv7l/aarch64/)
 
 # Refuse all other plattforms as a firewall against PEBKAC
 # (You'll need some #ifdef for your unsupported  plattform!)
 ifneq ($(ARCH),i386)
 ifneq ($(ARCH),x86_64)
+ifneq ($(ARCH),armv7l)
+ifneq ($(ARCH),aarch64)
 $(error arch $(ARCH) is currently not supported)
+endif
+endif
 endif
 endif
 
